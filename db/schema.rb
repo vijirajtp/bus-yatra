@@ -10,9 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_18_102406) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_18_125956) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "buses", force: :cascade do |t|
+    t.integer "bus_type"
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.bigint "operator_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["operator_id"], name: "index_buses_on_operator_id"
+  end
+
+  create_table "operators", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_operators_on_user_id"
+  end
+
+  create_table "routes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "from_city"
+    t.string "to_city"
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.text "address"
@@ -35,6 +59,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_18_102406) do
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
+    t.integer "role", default: 2, null: false
     t.integer "sign_in_count", default: 0, null: false
     t.string "state"
     t.string "unconfirmed_email"
@@ -43,6 +68,10 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_18_102406) do
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["role"], name: "index_users_on_role"
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
+
+  add_foreign_key "buses", "operators"
+  add_foreign_key "operators", "users"
 end

@@ -36,6 +36,9 @@
               %li.nav-item
                 = link_to "Login", new_user_session_path, class: "btn btn-outline-light btn-sm mt-1"
             - else
+              - if current_user.admin? || current_user.operator?
+                %li.nav-item
+                  = link_to "Admin Dashboard", admin_root_path, class: "btn btn-outline-light btn-sm mt-1 me-1"
               %li.nav-item
                 = link_to "Profile", edit_user_registration_path, class: "btn btn-outline-light btn-sm mt-1 me-1"
               %li.nav-item

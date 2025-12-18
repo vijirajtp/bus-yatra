@@ -1,0 +1,23 @@
+.container-fluid
+  %ul.navbar-nav
+    %li.nav-item
+      %a.nav-link{"data-lte-toggle" => "sidebar", href: "#", role: "button"}
+        %i.bi.bi-list
+    %li.nav-item.d-none.d-md-block
+      %a.nav-link{href: "#{admin_root_path}"} Home
+    %li.nav-item.d-none.d-md-block
+      %a.nav-link{href: "#"} Contact
+  %ul.navbar-nav.ms-auto
+    %li.nav-item.dropdown.user-menu
+      %a.nav-link.dropdown-toggle{"data-bs-toggle" => "dropdown", href: "#"}
+        %img.user-image.rounded-circle.shadow{alt: "User Image", src: "#{asset_path('user-icon.jpg')}"}/
+        %span.d-none.d-md-inline= full_name
+      %ul.dropdown-menu.dropdown-menu-lg.dropdown-menu-end
+        %li.user-header.text-bg-primary
+          %img.rounded-circle.shadow{alt: "User Image", src: "#{asset_path('user-icon.jpg')}"}/
+          %p
+            = full_name
+            %small= "Member since #{current_user.created_at.strftime("%d %b %Y")}"
+        %li.user-footer
+          %a.btn.btn-default.btn-flat{href: "#{edit_user_registration_path}"} Profile
+          %a.btn.btn-default.btn-flat.float-end{href: "#{destroy_user_session_path}", "data-turbo-method": :delete} Sign out

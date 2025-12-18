@@ -35,7 +35,7 @@ rails db:create db:migrate
 Now, you’ll be ready to seed the database with sample users, buses, trips and run the app in a local server
 ```
 rails db:seed
-rails s
+bin/dev
 ```
 Run the background job (Sidekiq) in another tab
 ```
