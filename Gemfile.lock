@@ -85,6 +85,8 @@ GEM
     bindex (0.8.1)
     bootsnap (1.19.0)
       msgpack (~> 1.2)
+    bootstrap (5.3.5)
+      popper_js (>= 2.11.8, < 3)
     brakeman (7.1.1)
       racc
     builder (3.3.0)
@@ -103,6 +105,9 @@ GEM
     concurrent-ruby (1.3.6)
     connection_pool (3.0.2)
     crass (1.0.6)
+    dartsass-rails (0.5.1)
+      railties (>= 6.0.0)
+      sass-embedded (~> 1.63)
     date (3.5.1)
     debug (1.11.0)
       irb (~> 1.10)
@@ -133,6 +138,24 @@ GEM
       raabro (~> 1.4)
     globalid (1.3.0)
       activesupport (>= 6.1)
+    google-protobuf (4.33.2)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.33.2-aarch64-linux-gnu)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.33.2-aarch64-linux-musl)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.33.2-x86_64-darwin)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.33.2-x86_64-linux-gnu)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.33.2-x86_64-linux-musl)
+      bigdecimal
+      rake (>= 13)
     haml (7.1.0)
       temple (>= 0.8.2)
       thor
@@ -237,6 +260,7 @@ GEM
     pg (1.6.2-x86_64-darwin)
     pg (1.6.2-x86_64-linux)
     pg (1.6.2-x86_64-linux-musl)
+    popper_js (2.11.8)
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
@@ -342,6 +366,20 @@ GEM
       racc (~> 1.5)
       sexp_processor (~> 4.16)
     rubyzip (3.2.2)
+    sass-embedded (1.97.0-aarch64-linux-gnu)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.97.0-aarch64-linux-musl)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.97.0-arm-linux-gnueabihf)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.97.0-arm-linux-musleabihf)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.97.0-x86_64-darwin)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.97.0-x86_64-linux-gnu)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.97.0-x86_64-linux-musl)
+      google-protobuf (~> 4.31)
     securerandom (0.4.1)
     selenium-webdriver (4.39.0)
       base64 (~> 0.2)
@@ -424,9 +462,11 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  bootstrap (~> 5.3.3)
   brakeman
   bundler-audit
   capybara
+  dartsass-rails
   debug
   devise
   haml-rails

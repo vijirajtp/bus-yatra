@@ -1,11 +1,9 @@
-%h1 Home
-%p A seat-based bus ticket booking system
+.container
+  .row
+    .col-md-5
+      %h2.mb-4 Home
+      %p A seat-based bus ticket booking system
 
-- if user_signed_in?
-  %p
-    Welcome, #{full_name}!
-  = link_to "Profile", edit_user_registration_path
-  = link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }
-- else
-  = link_to "Sign in", new_user_session_path
-  = link_to "Sign up", new_user_registration_path
+      - if user_signed_in?
+        %p
+          Welcome, #{full_name}!!

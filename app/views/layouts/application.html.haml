@@ -16,4 +16,48 @@
     = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = javascript_importmap_tags
   %body
-    = yield
+    %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.mb-4
+      .container
+        %a.navbar-brand{href: "/"} Bus Yatra
+        %button.navbar-toggler{type: "button", "data-bs-toggle": "collapse", "data-bs-target": "#navbarNav"}
+          %span.navbar-toggler-icon
+
+        #navbarNav.collapse.navbar-collapse
+          %ul.navbar-nav.me-auto
+            - if user_signed_in?
+              %li.nav-item
+                = link_to "Profile", edit_user_registration_path, class: "nav-link"
+              %li.nav-item
+                = link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link"
+          %ul.navbar-nav
+            - unless user_signed_in?
+              %li.nav-item
+                = link_to "Sign up", new_user_registration_path, class: "btn btn-outline-light btn-sm mt-1 me-1"
+              %li.nav-item
+                = link_to "Login", new_user_session_path, class: "btn btn-outline-light btn-sm mt-1"
+            - else
+              %li.nav-item
+                = link_to "Profile", edit_user_registration_path, class: "btn btn-outline-light btn-sm mt-1 me-1"
+              %li.nav-item
+                = link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-outline-light btn-sm mt-1"
+
+    / Main Content Area
+    .container
+      / Flash Messages
+      - flash.each do |type, message|
+        - alert_class = type == "notice" ? "alert-success" : "alert-danger"
+        .alert.alert-dismissible.fade.show{class: alert_class, role: "alert"}
+          = message
+          %button.btn-close{type: "button", "data-bs-dismiss": "alert", "aria-label": "Close"}
+
+      / Main View Yield
+      %main
+        .row
+          .col-md-12
+            .card.shadow-sm.p-4
+              = yield
+
+    / Footer
+    %footer.mt-5.py-3.border-top.text-center.text-muted
+      .container
+        %p &copy; #{Time.current.year} Bus Yatra

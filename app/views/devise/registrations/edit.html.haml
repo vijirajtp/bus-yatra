@@ -1,57 +1,50 @@
-%h2
-  Edit #{resource_name.to_s.humanize}
-= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    %div
-      Currently waiting confirmation for: #{resource.unconfirmed_email}
-  .field
-    = f.label :password
-    %i (leave blank if you don't want to change it)
-    %br/
-    = f.password_field :password, autocomplete: "new-password"
-    - if @minimum_password_length
-      %br/
-      %em
-        = @minimum_password_length
-        characters minimum
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "new-password"
-  .field
-    = f.label :first_name
-    %br/
-    = f.text_field :first_name
-  .field
-    = f.label :last_name
-    %br/
-    = f.text_field :last_name
-  .field
-    = f.label :address
-    %br/
-    = f.text_area :address
-  .field
-    = f.label :phone_number
-    %br/
-    = f.text_field :phone_number
-  .field
-    = f.label :city
-    %br/
-    = f.text_field :city
-  .field
-    = f.label :state
-    %br/
-    = f.text_field :state
-  .field
-    = f.label :current_password
-    %i (we need your current password to confirm your changes)
-    %br/
-    = f.password_field :current_password, autocomplete: "current-password"
-  .actions
-    = f.submit "Update"
-    = link_to "Back", :back
+.container.mt-5
+  .row.justify-content-center
+    .col-md-6
+      .card.shadow
+        .card-body
+          %h2.card-title.mb-4 User Profile
+          = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+            = render "devise/shared/error_messages", resource: resource
+            .form-group
+              = f.label :email, class: "control-label"
+              = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control"
+            .form-group
+              - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+                %div
+                  Currently waiting confirmation for: #{resource.unconfirmed_email}
+                = f.label :password, class: "control-label"
+                %i (leave blank if you don't want to change it)
+                = f.password_field :password, autocomplete: "new-password", class: "form-control"
+                - if @minimum_password_length
+                  %em
+                    = @minimum_password_length
+                    characters minimum
+            .form-group
+              = f.label :password_confirmation, class: "control-label"
+              = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control"
+            .form-group
+              = f.label :first_name, class: "control-label"
+              = f.text_field :first_name, class: "form-control"
+            .form-group
+              = f.label :last_name, class: "control-label"
+              = f.text_field :last_name, class: "form-control"
+            .form-group
+              = f.label :address, class: "control-label"
+              = f.text_area :address, class: "form-control"
+            .form-group
+              = f.label :phone_number, class: "control-label"
+              = f.text_field :phone_number, class: "form-control"
+            .form-group
+              = f.label :city, class: "control-label"
+              = f.text_field :city, class: "form-control"
+            .form-group
+              = f.label :state, class: "control-label"
+              = f.text_field :state, class: "form-control"
+            .form-group
+              = f.label :current_password, class: "control-label"
+              %i (we need your current password to confirm your changes)
+              = f.password_field :current_password, autocomplete: "current-password", class: "form-control"
+            .actions
+              = f.submit "Update", class: "btn btn-primary mt-3"
+              = link_to "Back", :back, class: "btn btn-secondary mt-3"
