@@ -9,3 +9,53 @@
   Price per seat: ₹#{@trip.price}
 %hr
 %h4 Select Seats
+#seat-container.mb-3
+  = render "seat_holds/seat_layout", seats: @seats
+.row
+  .col-md-5
+    = button_tag 'Hold Selected Seats', id: 'confirmSeatBtn', class: 'btn btn-primary', disabled: true
+
+#msg.mt-3
+
+:javascript
+  let selectedSeats = [];
+
+  document.querySelectorAll(".seat.available").forEach(seat => {
+    seat.addEventListener("click", function() {
+      const id = this.dataset.seatId;
+
+      if(this.classList.contains("selected")) {
+        this.classList.remove("selected");
+        selectedSeats = selectedSeats.filter(s => s != id);
+      } else {
+        this.classList.add("selected");
+        selectedSeats.push(id);
+      }
+
+      document.getElementById("confirmSeatBtn").disabled = selectedSeats.length === 0;
+    });
+  });
+
+  document.getElementById("confirmSeatBtn").addEventListener("click", () => {
+    fetch("#{trip_seat_holds_path(@trip)}", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-CSRF-Token": "#{form_authenticity_token}" },
+      body: JSON.stringify({ seat_ids: selectedSeats })
+    })
+    .then(r => r.json())
+    .then(data => {
+      if(data.error) {
+        document.getElementById("msg").innerHTML = `<div class='alert alert-danger'>${data.error}</div>`;
+      } else {
+        window.location.href = "#{trip_bookings_path(@trip)}?hold_id=" + data.hold_id;
+      }
+    });
+  });
+
+:css
+  .seat { width: 45px; height: 45px; margin: 5px; display: inline-block;
+          text-align:center; line-height:45px; border-radius:6px; cursor:pointer; }
+  .available { background:#e0ffe0; border:1px solid #4caf50; }
+  .held      { background:#ffeaa7; border:1px solid #e1b12c; cursor:not-allowed; }
+  .booked    { background:#ff7675; border:1px solid #b71c1c; cursor:not-allowed; }
+  .selected  { background:#4caf50; color:white !important; }

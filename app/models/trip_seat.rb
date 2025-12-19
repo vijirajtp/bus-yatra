@@ -5,4 +5,7 @@ class TripSeat < ApplicationRecord
 
   ## Enumerators
   enum :status, { available: 0, held: 1, booked: 2 }
+
+  ## Validations
+  validates :seat_id, uniqueness: { scope: :trip_id }
 end

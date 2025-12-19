@@ -1,0 +1,6 @@
+%div
+  - seats.group_by { |s| s.seat.seat_row }.each do |row, row_seats|
+    %div
+      - row_seats.each do |ts|
+        %div{class: "seat #{ts.status}", "data-seat-id" => "#{ts.seat_id}"}
+          = ts.seat.seat_number

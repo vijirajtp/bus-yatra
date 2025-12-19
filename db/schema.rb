@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_19_082326) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_19_181743) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "status"
+    t.integer "total_amount"
+    t.bigint "trip_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["trip_id"], name: "index_bookings_on_trip_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
 
   create_table "buses", force: :cascade do |t|
     t.integer "bus_type"
@@ -38,6 +49,16 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_19_082326) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "seat_holds", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "expires_at"
+    t.bigint "trip_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["trip_id"], name: "index_seat_holds_on_trip_id"
+    t.index ["user_id"], name: "index_seat_holds_on_user_id"
+  end
+
   create_table "seats", force: :cascade do |t|
     t.bigint "bus_id", null: false
     t.datetime "created_at", null: false
@@ -49,7 +70,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_19_082326) do
   end
 
   create_table "trip_seats", force: :cascade do |t|
+    t.integer "booking_id"
     t.datetime "created_at", null: false
+    t.integer "seat_hold_id"
     t.bigint "seat_id", null: false
     t.integer "status"
     t.bigint "trip_id", null: false
@@ -106,8 +129,12 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_19_082326) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "bookings", "trips"
+  add_foreign_key "bookings", "users"
   add_foreign_key "buses", "operators"
   add_foreign_key "operators", "users"
+  add_foreign_key "seat_holds", "trips"
+  add_foreign_key "seat_holds", "users"
   add_foreign_key "seats", "buses"
   add_foreign_key "trip_seats", "seats"
   add_foreign_key "trip_seats", "trips"

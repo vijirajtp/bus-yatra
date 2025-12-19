@@ -6,5 +6,6 @@ class TripsController < ApplicationController
 
 	def show
     @trip = Trip.find(params[:id])
+    @seats = @trip.trip_seats.order(:id)
   end
 end
