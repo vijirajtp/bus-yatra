@@ -1,0 +1,11 @@
+%h3
+  = @trip.route.from_city
+  ➝ #{@trip.route.to_city}
+%p
+  Date: #{@trip.travel_date}
+  %br
+  Bus: #{@trip.bus.name}
+  %br
+  Price per seat: ₹#{@trip.price}
+%hr
+%h4 Select Seats

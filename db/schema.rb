@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_18_125956) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_19_082326) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -36,6 +36,40 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_18_125956) do
     t.string "from_city"
     t.string "to_city"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "seats", force: :cascade do |t|
+    t.bigint "bus_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "seat_column"
+    t.string "seat_number"
+    t.integer "seat_row"
+    t.datetime "updated_at", null: false
+    t.index ["bus_id"], name: "index_seats_on_bus_id"
+  end
+
+  create_table "trip_seats", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "seat_id", null: false
+    t.integer "status"
+    t.bigint "trip_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["seat_id"], name: "index_trip_seats_on_seat_id"
+    t.index ["trip_id"], name: "index_trip_seats_on_trip_id"
+  end
+
+  create_table "trips", force: :cascade do |t|
+    t.bigint "bus_id", null: false
+    t.datetime "created_at", null: false
+    t.bigint "operator_id", null: false
+    t.integer "price"
+    t.float "rating"
+    t.bigint "route_id", null: false
+    t.date "travel_date"
+    t.datetime "updated_at", null: false
+    t.index ["bus_id"], name: "index_trips_on_bus_id"
+    t.index ["operator_id"], name: "index_trips_on_operator_id"
+    t.index ["route_id"], name: "index_trips_on_route_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -74,4 +108,10 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_18_125956) do
 
   add_foreign_key "buses", "operators"
   add_foreign_key "operators", "users"
+  add_foreign_key "seats", "buses"
+  add_foreign_key "trip_seats", "seats"
+  add_foreign_key "trip_seats", "trips"
+  add_foreign_key "trips", "buses"
+  add_foreign_key "trips", "operators"
+  add_foreign_key "trips", "routes"
 end

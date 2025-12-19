@@ -1,0 +1,32 @@
+%h2.mb-3 Search Buses
+= form_with url: trips_path, method: :get, local: true, class: "row g-3 mb-4" do
+  .col-md-4
+    %label From
+    = text_field_tag :from, params[:from], class: "form-control"
+  .col-md-4
+    %label To
+    = text_field_tag :to, params[:to], class: "form-control"
+  .col-md-3
+    %label Date
+    = date_field_tag :date, params[:date], class: "form-control"
+  .col-md-1.d-flex.align-items-end
+    = submit_tag "Search", class: "btn btn-primary w-100"
+%hr
+%h4 Available Trips
+- if @trips.any?
+  - @trips.each do |trip|
+    .card.mb-3
+      .card-body
+        %h5
+          = trip.route.from_city
+          ➝ #{trip.route.to_city}
+        %p
+          Date: #{trip.travel_date}
+          %br
+          Bus: #{trip.bus.name}
+          %br
+          Price: ₹#{trip.price}
+        = link_to "View Seats", trip_path(trip), class: "btn btn-success"
+  = will_paginate @trips
+- else
+  %p No trips found

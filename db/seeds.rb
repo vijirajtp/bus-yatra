@@ -9,24 +9,90 @@
 #   end
 require 'faker'
 
-User.create(email: Faker::Internet.unique.email, confirmed_at: Time.now, role: "admin")
+puts "===== Seeding data ====="
+
+User.create!(email: Faker::Internet.unique.email, confirmed_at: Time.now, role: "admin")
+
+puts "Admin created"
+
+Bus.delete_all
+Operator.delete_all
 
 3.times do
-	user = User.create(
+	user = User.create!(
 		email: Faker::Internet.unique.email,
 		password: "password123",
 		confirmed_at: Time.now,
 		role: "operator")
 
 	["Kallada Travels", "Parveen Travels", "SRM Travels"].each do |op_name|
-		operator = Operator.create(name: op_name, user_id: user.id)
+		operator = Operator.find_or_create_by!(name: op_name, user_id: user.id)
 		["Volvo", "Scania", "Tata"].each do |bus_name|
-			operator.buses.create(name: bus_name, bus_type: Bus.bus_types.keys.shuffle.first)
+			bus = operator.buses.find_or_create_by!(name: bus_name)
+			bus.update!(bus_type: Bus.bus_types.keys.shuffle.first)
 		end
 	end
 end
 
+puts "User (Operator Role), Operator and Bus created"
+
 to_cities = ["Chennai", "Hyderabad", "Mumbai"]
-["Banglore", "Delhi", "Trivandrum"].each do |from|
-	Route.create(from_city: from, to_city: to_cities.shuffle.first)
+["Banglore", "Delhi", "Trivandrum"].each_with_index do |from, index|
+	Route.find_or_create_by!(from_city: from, to_city: to_cities[index])
 end
+
+puts "Route created"
+
+# ========= SEATS =========
+# Example: 2 rows x 2 columns layout
+
+bus = Bus.first
+Seat.where(bus: bus).delete_all
+
+seat_layout = [
+  ["A1", 1, 1],
+  ["A2", 1, 2],
+  ["B1", 2, 1],
+  ["B2", 2, 2]
+]
+
+seat_layout.each do |seat_number, row, col|
+  Seat.create!(
+    bus: bus,
+    seat_number: seat_number,
+    seat_row: row,
+    seat_column: col
+  )
+end
+
+puts "Seats created: #{bus.seats.count}"
+
+route = Route.first
+operator = Operator.first
+# ========= TRIP =========
+trip = Trip.find_or_create_by!(
+  route: route,
+  bus: bus,
+  operator: operator,
+  travel_date: Date.today + 1.day,
+  price: 1700,
+  rating: 4.6
+)
+
+puts "Trip created for #{trip.travel_date}"
+
+
+# ========= TRIP SEATS =========
+TripSeat.where(trip: trip).delete_all
+
+bus.seats.each do |seat|
+  TripSeat.create!(
+    trip: trip,
+    seat: seat,
+    status: "available"
+  )
+end
+
+puts "Trip seats created: #{trip.trip_seats.count}"
+
+puts "===== Seeding data completed ====="

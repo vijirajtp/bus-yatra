@@ -47,6 +47,7 @@ gem 'html2haml'
 gem "dartsass-rails"
 gem "bootstrap", "~> 5.3.3"
 gem "faker", "~> 3.5", ">= 3.5.3"
+gem 'will_paginate', '~> 4.0', '>= 4.0.1'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
