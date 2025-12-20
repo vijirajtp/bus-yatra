@@ -1,0 +1,9 @@
+.mb-3
+  = f.label :seat_number, "Seat Number"
+  = f.text_field :seat_number, class: "form-control", placeholder: "E.g., A1, B2", required: true
+.mb-3
+  = f.label :seat_row, "Seat Row"
+  = f.number_field :seat_row, class: "form-control"
+.mb-3
+  = f.label :seat_column, "Seat Column"
+  = f.number_field :seat_column, class: "form-control"

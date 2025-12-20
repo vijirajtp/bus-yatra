@@ -76,7 +76,8 @@ trip = Trip.find_or_create_by!(
   operator: operator,
   travel_date: Date.today + 1.day,
   price: 1700,
-  rating: 4.6
+  rating: 4.6,
+  departure_at: Time.now + 1.day
 )
 
 puts "Trip created for #{trip.travel_date}"

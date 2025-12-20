@@ -1,0 +1,15 @@
+.app-content-header
+  .container-fluid
+    .row
+      .col-sm-6
+        %h3.mb-0 Add New Trip
+.app-content
+  .container-fluid
+    .row
+      .col-sm-6
+        .card
+          .card-body
+            = form_with model: [:admin, @trip], local: true do |f|
+              = render "form", f: f
+              = f.submit "Create Trip", class: "btn btn-primary"
+              = link_to "Back", admin_trips_path, class: "btn btn-secondary"

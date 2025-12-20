@@ -6,33 +6,18 @@
   %nav.mt-2
     %ul#navigation.nav.sidebar-menu.flex-column{"aria-label" => "Main navigation", "data-accordion" => "false", "data-lte-toggle" => "treeview", role: "navigation"}
       %li.nav-item
-        %a.nav-link{href: "#"}
-          %i.nav-icon.bi.bi-speedometer
-          %p
-            Dashboard
-            %i.nav-arrow.bi.bi-chevron-right
-        %ul.nav.nav-treeview
-          %li.nav-item
-            %a.nav-link{href: "../index.html"}
-              %i.nav-icon.bi.bi-circle
-              %p Dashboard v1
-          %li.nav-item
-            %a.nav-link{href: "../index2.html"}
-              %i.nav-icon.bi.bi-circle
-              %p Dashboard v2
-          %li.nav-item
-            %a.nav-link{href: "../index3.html"}
-              %i.nav-icon.bi.bi-circle
-              %p Dashboard v3
-      %li.nav-item
-        %a.nav-link{href: "../generate/theme.html"}
+        %a.nav-link{href: "#{admin_dashboard_path}"}
           %i.nav-icon.bi.bi-palette
-          %p Operators
+          %p Dashboard
       %li.nav-item
-        %a.nav-link{href: "../generate/theme.html"}
+        %a.nav-link{href: "#{admin_buses_path}"}
           %i.nav-icon.bi.bi-palette
           %p Buses
       %li.nav-item
-        %a.nav-link{href: "../generate/theme.html"}
+        %a.nav-link{href: "#{admin_bus_routes_path}"}
           %i.nav-icon.bi.bi-palette
           %p Routes
+      %li.nav-item
+        %a.nav-link{href: "#{admin_trips_path}"}
+          %i.nav-icon.bi.bi-palette
+          %p Trips

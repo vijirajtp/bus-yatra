@@ -1,0 +1,15 @@
+.app-content-header
+  .container-fluid
+    .row
+      .col-sm-6
+        %h3.mb-0 Edit Seat - #{@bus.name}
+.app-content
+  .container-fluid
+    .row
+      .col-sm-6
+        .card
+          .card-body
+            = form_with model: [:admin, @bus, @seat], local: true do |f|
+              = render "form", f: f
+              = f.submit "Update Seat", class: "btn btn-primary"
+              = link_to "Back", admin_bus_seats_path(@bus), class: "btn btn-secondary"

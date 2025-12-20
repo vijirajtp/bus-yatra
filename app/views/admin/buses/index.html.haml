@@ -1,0 +1,33 @@
+.app-content-header
+  .container-fluid
+    .row
+      .col-sm-6
+        %h3.mb-0 Buses
+.app-content
+  .container-fluid
+    = link_to "New Bus", new_admin_bus_path, class:"btn btn-primary mb-3"
+    %table.table.table-bordered
+      %tr
+        %th Name
+        %th Operator
+        %th Type
+        %th Seats
+        %th Created At
+        %th Actions
+      %tbody
+        - if @buses.any?
+          - @buses.each do |bus|
+            %tr
+              %td= bus.name
+              %td= bus.operator.name
+              %td= bus.bus_type.humanize
+              %td= bus.seats.count
+              %td= bus.created_at.strftime("%d-%m-%Y %H:%M %p")
+              %td
+                = link_to "Edit", edit_admin_bus_path(bus)
+                |
+                = link_to "Seats", admin_bus_seats_path(bus)
+          = will_paginate @buses
+        - else
+          %tr
+            %td{colspan: "6", style: "text-align:center"} No records found.

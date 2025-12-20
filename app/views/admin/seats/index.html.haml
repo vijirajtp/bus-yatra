@@ -1,0 +1,28 @@
+.app-content-header
+  .container-fluid
+    .row
+      .col-sm-6
+        %h3.mb-0 Seats for #{@bus.name}
+.app-content
+  .container-fluid
+    = link_to "Add Seat", new_admin_bus_seat_path(@bus), class:"btn btn-primary mb-3"
+    %table.table.table-bordered.table-striped
+      %tr
+        %th Seat Number
+        %th Seat Row
+        %th Seat Column
+        %th Created At
+        %th Actions
+      %tbody
+        - if @seats.any?
+          - @seats.each do |seat|
+            %tr
+              %td= seat.seat_number
+              %td= seat.seat_row
+              %td= seat.seat_column
+              %td= seat.created_at.strftime("%d-%m-%Y %H:%M %p")
+              %td= link_to "Edit", edit_admin_bus_seat_path(seat, bus_id: @bus)
+          = will_paginate @seats
+        - else
+          %tr
+            %td{colspan: "5", style: "text-align:center"} No records found.

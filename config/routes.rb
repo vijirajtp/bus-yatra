@@ -21,6 +21,11 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'dashboard', to: 'dashboard#index'
     root to: 'dashboard#index'
+    resources :bus_routes
+    resources :buses do
+      resources :seats
+    end
+    resources :trips
   end
 
   resources :trips, only: [:index, :show] do

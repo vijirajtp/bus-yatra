@@ -1,0 +1,37 @@
+.app-content-header
+  .container-fluid
+    .row
+      .col-sm-6
+        %h3.mb-0 Trips
+.app-content
+  .container-fluid
+    = link_to "New Trip", new_admin_trip_path, class:"btn btn-primary mb-3"
+    %table.table.table-bordered
+      %tr
+        %th Route
+        %th Bus
+        %th Operator
+        %th Date
+        %th Departure
+        %th Price
+        %th Created At
+        %th Actions
+      %tbody
+        - if @trips.any?
+          - @trips.each do |trip|
+            %tr
+              %td
+                = trip.route.from_city
+                ➝ #{trip.route.to_city}
+              %td= trip.bus.name
+              %td= trip.operator.name
+              %td= trip.travel_date.strftime("%d-%m-%Y")
+              %td= trip.departure_at.strftime("%I:%M %p")
+              %td
+                ₹#{trip.price}
+              %td= trip.created_at.strftime("%d-%m-%Y %H:%M %p")
+              %td= link_to "Edit", edit_admin_trip_path(trip)
+          = will_paginate @trips
+        - else
+          %tr
+            %td{colspan: "8", style: "text-align:center"} No records found.

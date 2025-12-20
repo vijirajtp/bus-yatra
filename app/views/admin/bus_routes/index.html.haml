@@ -1,0 +1,26 @@
+.app-content-header
+  .container-fluid
+    .row
+      .col-sm-6
+        %h3.mb-0 Routes
+.app-content
+  .container-fluid
+    = link_to "New Route", new_admin_bus_route_path, class:"btn btn-primary mb-3"
+    %table.table.table-bordered
+      %tr
+        %th From
+        %th To
+        %th Created At
+        %th Actions
+      %tbody
+        - if @routes.any?
+          - @routes.each do |r|
+            %tr
+              %td= r.from_city
+              %td= r.to_city
+              %td= r.created_at.strftime("%d-%m-%Y %H:%M %p")
+              %td= link_to "Edit", edit_admin_bus_route_path(r)
+          = will_paginate @routes
+        - else
+          %tr
+            %td{colspan: "4", style: "text-align:center"} No records found.

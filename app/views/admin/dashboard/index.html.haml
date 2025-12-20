@@ -5,6 +5,24 @@
         %h3.mb-0 Dashboard
 .app-content
   .container-fluid
-    .callout.callout-info.mb-4
-      %h5.fw-bold Info
-      %p This admin panel lists all the authorized pages for the logged in user.
+    .row
+      .col-lg-3.col-6
+        .small-box.text-bg-primary
+          .inner
+            %h3= @total_trips
+            %p Trips
+      .col-lg-3.col-6
+        .small-box.text-bg-success
+          .inner
+            %h3= @total_routes
+            %p Routes
+      .col-lg-3.col-6
+        .small-box.text-bg-warning
+          .inner
+            %h3= @total_buses
+            %p Buses
+      .col-lg-3.col-6
+        .small-box.text-bg-danger
+          .inner
+            %h3= @total_bookings
+            %p Bookings
