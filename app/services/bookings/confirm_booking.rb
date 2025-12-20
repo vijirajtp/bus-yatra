@@ -9,7 +9,7 @@ module Bookings
 
     def call
       ActiveRecord::Base.transaction do
-        seats = TripSeat.where(trip: @trip, seat_hold_id: @hold.id).lock("FOR UPDATE")
+        seats = TripSeat.where(trip: @trip, seat_hold_id: @hold.id).lock("FOR UPDATE").to_a
 
         raise "Seats already booked" if seats.any?(&:booked?)
         raise "Hold expired" if @hold.expires_at < Time.current

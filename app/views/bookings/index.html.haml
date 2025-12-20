@@ -1,0 +1,32 @@
+%h2 Your Bookings
+%hr
+- if @bookings.any?
+  - @bookings.each do |booking|
+    .card.mb-3
+      .card-body
+        %h5
+          = booking.trip.route.from_city
+          ➝
+          \#{booking.trip.route.to_city}
+        %p
+          Date:
+          %strong= booking.trip.travel_date
+          %br
+          Seats:
+          %strong
+            = booking.trip_seats.map { |s| s.seat.seat_number }.join(", ")
+          %br
+          Amount:
+          ₹#{booking.total_amount}
+          %br
+          Status:
+          - if booking.confirmed?
+            %span.badge.bg-success Confirmed
+          - elsif booking.cancelled?
+            %span.badge.bg-danger Cancelled
+        %div
+          = link_to "View", trip_booking_path(booking.trip, booking), class: "btn btn-primary btn-sm"
+  = will_paginate @bookings
+- else
+  .alert.alert-info
+    You have no bookings yet.

@@ -1,0 +1,23 @@
+%h3 Confirm Your Booking
+%p
+  %strong Route:
+  = @trip.route.from_city
+  ➝ #{@trip.route.to_city}
+  %br
+  %strong Date:
+  = @trip.travel_date
+  %br
+  %strong Seats:
+  = @seats.map { |s| s.seat.seat_number }.join(", ")
+  %br
+  %strong Total Amount:
+  ₹#{(@seats.count * (@trip.price)).to_i}
+.row
+  .col-md-5
+    .alert.alert-info
+      Seats are held for 5 minutes. Please confirm before expiry.
+
+= form_with url: trip_bookings_path(@trip), method: :post, local: true do                                             |
+  = hidden_field_tag :hold_id, @hold.id
+  = submit_tag "Confirm Booking", class: "btn btn-success"
+  = link_to "Cancel", trip_path(id: @trip.id, hold_id: @hold.id), class: "btn btn-secondary"

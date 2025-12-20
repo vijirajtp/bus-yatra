@@ -25,7 +25,13 @@ Rails.application.routes.draw do
 
   resources :trips, only: [:index, :show] do
     resources :seat_holds, only: [:create]
-    resources :bookings, only: [:create, :show]
+    resources :bookings, only: [:create, :show] do
+      collection do
+        get :confirm_booking
+      end
+    end
   end
+
+  get "bookings", to: "bookings#index"
 
 end

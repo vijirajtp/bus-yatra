@@ -5,5 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable
 
+  ## Associations
+  has_many :bookings, dependent: :destroy
+
+  ## Enumerators
   enum :role, { admin: 0, operator: 1, customer: 2 }
 end
