@@ -1,0 +1,52 @@
+%h2 Reschedule Booking
+%hr
+.card.mb-3
+  .card-body
+    %h5 Current Booking
+    %p
+      %strong
+        = "#{@booking.trip.route.from_city} ➝ #{@booking.trip.route.to_city}"
+      %br
+      Current Date:
+      %strong= @booking.trip.travel_date
+      %br
+      Operator:
+      %strong= @booking.trip.operator.name
+
+.card.mb-3
+  .card-body
+    %h5 Select New Travel Date
+    = form_with url: reschedule_trip_booking_path(@booking, trip_id: @booking.trip.id), method: :get, local: true, class: "row g-3" do
+      .col-md-4
+        = label_tag :new_date, "New Travel Date"
+        = date_field_tag :new_date, params[:new_date], class: "form-control", required: true
+      .col-md-2.d-flex.align-items-end
+        = submit_tag "Search Trips", class: "btn btn-primary w-100"
+
+%h4 Available Trips
+- if params[:new_date].blank?
+  .row
+    .col-md-5
+      .alert.alert-info
+        Select a date to see available trips.
+- elsif @available_trips.empty?
+  .row
+    .col-md-5
+      .alert.alert-warning
+        No trips available for the selected date.
+- else
+  - @available_trips.each do |trip|
+    .card.mb-2
+      .card-body
+        %h5
+          = "#{trip.route.from_city} ➝ #{trip.route.to_city}"
+        %p
+          Date:
+          %strong= trip.travel_date
+          %br
+          Bus: #{trip.bus.name}
+          %br
+          Operator: #{trip.operator.name}
+          %br
+          Price: ₹#{trip.price}
+        = button_to "Move Booking to this Trip", perform_reschedule_trip_booking_path(@booking, trip_id: trip.id),method: :post, class: "btn btn-success"

@@ -25,7 +25,7 @@
           - elsif booking.cancelled?
             %span.badge.bg-danger Cancelled
         %div
-          = link_to "View", trip_booking_path(booking.trip, booking), class: "btn btn-primary btn-sm"
+          = link_to "View", trip_booking_path(booking.trip, booking), class: "btn btn-primary btn-sm" unless booking.cancelled?
   = will_paginate @bookings
 - else
   .alert.alert-info

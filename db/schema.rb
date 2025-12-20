@@ -10,12 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_20_074710) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_20_114022) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "bookings", force: :cascade do |t|
+    t.integer "cancellation_fee"
+    t.datetime "cancelled_at"
     t.datetime "created_at", null: false
+    t.integer "refund_amount"
     t.integer "status"
     t.integer "total_amount"
     t.bigint "trip_id", null: false
@@ -85,6 +88,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_20_074710) do
   create_table "trips", force: :cascade do |t|
     t.bigint "bus_id", null: false
     t.datetime "created_at", null: false
+    t.datetime "departure_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.bigint "operator_id", null: false
     t.integer "price"
     t.float "rating"

@@ -19,7 +19,7 @@
 #msg.mt-3
 
 :javascript
-  let selectedSeats = [];
+  var selectedSeats = selectedSeats || [];
 
   document.querySelectorAll(".seat.available").forEach(seat => {
     seat.addEventListener("click", function() {

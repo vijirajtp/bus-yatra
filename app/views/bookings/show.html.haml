@@ -1,1 +1,14 @@
 %h3 Booking Confirmed!!
+%p
+  Trip: #{@booking.trip.route.from_city} ➝ #{@booking.trip.route.to_city}
+  %br
+  Date: #{@booking.trip.travel_date}
+  %br
+  Seats: #{@booking.trip_seats.map { |s| s.seat.seat_number }.join(", ")}
+%h4
+  Total Paid: ₹#{@booking.total_amount}
+%hr
+.row
+  .col-md-5
+    = link_to "Reschedule", reschedule_trip_booking_path(@booking), class:"btn btn-warning"
+    = button_to "Cancel Ticket", trip_booking_path(@booking.trip, @booking), method: :delete, data: { turbo_confirm: "Are you sure you want to cancel these seats?" }, class: "btn btn-danger mt-2"

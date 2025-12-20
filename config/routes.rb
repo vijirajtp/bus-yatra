@@ -25,10 +25,15 @@ Rails.application.routes.draw do
 
   resources :trips, only: [:index, :show] do
     resources :seat_holds, only: [:create]
-    resources :bookings, only: [:create, :show] do
+    resources :bookings, only: [:create, :show, :destroy] do
       collection do
         get :confirm_booking
       end
+      member do
+        get  :reschedule
+        post :perform_reschedule
+        get  :cancel
+    end
     end
   end
 
