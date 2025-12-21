@@ -1,0 +1,25 @@
+.row
+  / Price Range
+  .col-md-3.mb-2
+    = label_tag :min_price, "Min Price"
+    = number_field_tag :min_price, params[:min_price], min: 100, step: 50, class: "form-control"
+  .col-md-3.mb-2
+    = label_tag :max_price, "Max Price"
+    = number_field_tag :max_price, params[:max_price], class: "form-control"
+  / Bus Type
+  .col-md-3.mb-2
+    = label_tag :bus_type, "Bus Type"
+    = select_tag :bus_type, options_for_select(Bus.bus_types.keys.map { |k| [k.humanize, k] }, params[:bus_type]), include_blank: "Any", class: "form-control"
+  / Operator Rating
+  .col-md-3.mb-2
+    = label_tag :rating, "Operator Rating"
+    = select_tag :rating, options_for_select([["3★ & above", "3"], ["4★ & above", "4"], ["4.5★ & above", "4.5"]], params[:rating]), include_blank: "Any", class: "form-control"
+
+.row.mt-3
+  / Amenities
+  .col-md-12
+    = label_tag nil, "Amenities"
+    %br
+    - ["wifi", "charging_port", "water_bottle", "reading_lights"].each do |amenity|
+      %label= check_box_tag "amenities[]", amenity, params[:amenities]&.include?(amenity), id: "amenity_#{amenity}"
+      = amenity.humanize

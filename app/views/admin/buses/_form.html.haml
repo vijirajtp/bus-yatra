@@ -7,3 +7,12 @@
 .mb-3
   = f.label :bus_type, "Bus Type"
   = f.select :bus_type, Bus.bus_types.keys.map { |t| [t.humanize, t] }, {}, class: "form-control"
+.mb-3
+  = f.label :amenities, "Amenities"
+  %br
+  - amenities = { wifi: "Wi-Fi", charging_port: "Charging Port", water_bottle: "Water Bottle", reading_lights: "Reading Lights" }
+  
+  - amenities.each do |key, label_text|
+    %label.me-3
+      = check_box_tag "bus[amenities][#{key}]", "true", @bus.amenities&.[](key.to_s), id: "amenity_#{key}"
+      = label_text

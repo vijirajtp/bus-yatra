@@ -4,3 +4,6 @@
 .mb-3
   = f.label :user_id, "User"
   = f.collection_select :user_id, User.operator, :id, :email, {}, class: "form-control"
+.mb-3
+  = f.label :rating, "Operator Rating"
+  = f.number_field :rating, step: 0.1, min: 0.5, max: 5, class: "form-control", placeholder: "Eg: 4.5"

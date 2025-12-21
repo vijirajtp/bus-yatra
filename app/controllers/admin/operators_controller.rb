@@ -37,7 +37,7 @@ class Admin::OperatorsController < AdminController
   private
 
   def operator_params
-    params.require(:operator).permit(:name, :user_id)
+    params.require(:operator).permit(:name, :user_id, :rating)
   end
 
   def find_operator

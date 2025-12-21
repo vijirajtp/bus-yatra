@@ -37,7 +37,7 @@ class Admin::BusesController < AdminController
   private
 
   def bus_params
-    params.require(:bus).permit(:name, :bus_type, :operator_id)
+    params.require(:bus).permit(:name, :bus_type, :operator_id, amenities: {})
   end
 
   def find_bus

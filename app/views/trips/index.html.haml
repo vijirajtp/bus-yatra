@@ -11,6 +11,10 @@
     = date_field_tag :date, params[:date], class: "form-control"
   .col-md-1.d-flex.align-items-end
     = submit_tag "Search", class: "btn btn-primary w-100"
+  
+  %h5 Advanced Filters
+  = render partial: "advanced_filters"
+
 %hr
 %h4 Available Trips
 - if @trips.any?

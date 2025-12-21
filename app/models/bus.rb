@@ -12,4 +12,6 @@ class Bus < ApplicationRecord
 
   ## Validations
   validates :name, :bus_type, presence: true
+
+  store_accessor :amenities, :wifi, :charging_port, :water_bottle, :reading_lights
 end

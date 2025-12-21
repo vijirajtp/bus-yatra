@@ -11,6 +11,7 @@
       %tr
         %th Name
         %th User
+        %th Rating
         %th Created At
         %th Actions
       %tbody
@@ -19,10 +20,11 @@
             %tr
               %td= op.name
               %td= op.user.email
+              %td= op.rating.present? ? "#{op.rating} ★" : "Not Rated"
               %td= op.created_at.strftime("%d-%m-%Y %H:%M %p")
               - if policy(op).edit?
                 %td= link_to "Edit", edit_admin_operator_path(op)
           = will_paginate @operators
         - else
           %tr
-            %td{colspan: "3", style: "text-align:center"} No records found.
+            %td{colspan: "4", style: "text-align:center"} No records found.

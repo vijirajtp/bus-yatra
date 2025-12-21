@@ -8,4 +8,5 @@ class Operator < ApplicationRecord
 
   ## Validations
   validates :name, presence: true
+  validates :rating, numericality: true, allow_nil: true
 end

@@ -13,6 +13,7 @@
         %th Operator
         %th Type
         %th Seats
+        %th Amenities
         %th Created At
         %th Actions
       %tbody
@@ -23,6 +24,10 @@
               %td= bus.operator.name
               %td= bus.bus_type.humanize
               %td= bus.seats.count
+              %td
+                - (bus.amenities || {}).each do |key, enabled|
+                  - if enabled == "true" || enabled == true
+                    %span.badge.bg-primary= key.humanize
               %td= bus.created_at.strftime("%d-%m-%Y %H:%M %p")
               %td
                 = link_to "Edit", edit_admin_bus_path(bus)
@@ -31,4 +36,4 @@
           = will_paginate @buses
         - else
           %tr
-            %td{colspan: "6", style: "text-align:center"} No records found.
+            %td{colspan: "7", style: "text-align:center"} No records found.
