@@ -18,24 +18,19 @@ puts "Admin created"
 Bus.delete_all
 Operator.delete_all
 
-3.times do
-	user = User.create!(
+operator_user = User.create!(
 		email: Faker::Internet.unique.email,
 		password: "password123",
 		confirmed_at: Time.now,
 		role: "operator")
 
-	["Kallada Travels", "Parveen Travels", "SRM Travels"].each do |op_name|
-		operator = Operator.find_or_create_by!(name: op_name, user_id: user.id)
-		["Volvo", "Scania", "Tata"].each do |bus_name|
-			bus = operator.buses.find_or_create_by!(name: bus_name)
-			bus.update!(bus_type: Bus.bus_types.keys.shuffle.first)
-		end
-	end
-end
+# ========= OPERATOR & BUS =========
+operator = Operator.find_or_create_by!(name: "Kallada Travels", user_id: operator_user.id)
+operator.buses.find_or_create_by!(name: "Scania", bus_type: "ac_sleeper")
 
 puts "User (Operator Role), Operator and Bus created"
 
+# ========= ROUTES =========
 to_cities = ["Chennai", "Hyderabad", "Mumbai"]
 ["Banglore", "Delhi", "Trivandrum"].each_with_index do |from, index|
 	Route.find_or_create_by!(from_city: from, to_city: to_cities[index])

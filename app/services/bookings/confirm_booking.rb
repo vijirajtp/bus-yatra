@@ -4,7 +4,7 @@ module Bookings
     def initialize(user:, trip:, hold_id:)
       @user = user
       @trip = trip
-      @hold = SeatHold.active.find(hold_id)
+      @hold = SeatHold.find(hold_id)
     end
 
     def call

@@ -41,8 +41,8 @@ module Bookings
       @booking.update!(
         status: :cancelled,
         cancelled_at: Time.current,
-        cancellation_fee_cents: CANCELLATION_FEE,
-        refund_amount_cents: refund
+        cancellation_fee: CANCELLATION_FEE,
+        refund_amount: refund
       )
     end
   end
