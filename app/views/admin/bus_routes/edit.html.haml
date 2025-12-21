@@ -10,6 +10,7 @@
         .card
           .card-body
             = form_with model: [:admin, @route], url: admin_bus_route_path(@route), local: true do |f|
+              = render "shared/error_messages", object: f.object
               = render "form", f: f
               = f.submit "Update Route", class: "btn btn-primary"
               = link_to "Back", admin_bus_routes_path, class: "btn btn-secondary"

@@ -1,9 +1,9 @@
 .mb-3
   = f.label :name, "Bus Name"
-  = f.text_field :name, class: "form-control", required: true
+  = f.text_field :name, class: "form-control", required: true 
 .mb-3
   = f.label :operator_id, "Operator"
-  = f.collection_select :operator_id, Operator.all, :id, :name, { prompt: "Select Operator" }, { class: "form-control" }
+  = f.collection_select :operator_id, policy_scope(Operator), :id, :name, { prompt: "Select Operator" }, { class: "form-control" }
 .mb-3
   = f.label :bus_type, "Bus Type"
   = f.select :bus_type, Bus.bus_types.keys.map { |t| [t.humanize, t] }, {}, class: "form-control"

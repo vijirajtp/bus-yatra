@@ -5,7 +5,8 @@
         %h3.mb-0 Routes
 .app-content
   .container-fluid
-    = link_to "New Route", new_admin_bus_route_path, class:"btn btn-primary mb-3"
+    - if policy(Route).create?
+      = link_to "New Route", new_admin_bus_route_path, class:"btn btn-primary mb-3"
     %table.table.table-bordered
       %tr
         %th From

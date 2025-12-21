@@ -6,4 +6,10 @@ class Bus < ApplicationRecord
 
   ## Enumerators
   enum :bus_type, { ac_seater: 0, ac_sleeper: 1, non_ac_seater: 2, non_ac_sleeper: 3 }
+
+  ## Scopes
+  scope :desc, -> { order('created_at DESC') }
+
+  ## Validations
+  validates :name, :bus_type, presence: true
 end

@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   ## Associations
   has_many :bookings, dependent: :destroy
+  has_one  :operator, dependent: :destroy
 
   ## Enumerators
   enum :role, { admin: 0, operator: 1, customer: 2 }

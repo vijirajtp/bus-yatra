@@ -8,4 +8,7 @@ class TripSeat < ApplicationRecord
 
   ## Validations
   validates :seat_id, uniqueness: { scope: :trip_id }
+
+  ## Scopes
+  scope :desc, -> { order('created_at DESC') }
 end

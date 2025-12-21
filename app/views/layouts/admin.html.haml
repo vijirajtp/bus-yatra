@@ -24,6 +24,13 @@
       %aside.app-sidebar.bg-body-secondary.shadow{"data-bs-theme" => "dark"}
         = render partial: "admin/shared/sidebar_menu"
       %main.app-main
+        / Flash Messages
+        .container
+          - flash.each do |type, message|
+            - alert_class = type == "notice" ? "alert-success" : "alert-danger"
+            .alert.alert-dismissible.fade.show.mt-2{class: alert_class, role: "alert"}
+              = message
+              %button.btn-close{type: "button", "data-bs-dismiss": "alert", "aria-label": "Close"}
         = yield
       %footer.app-footer
         .float-end.d-none.d-sm-inline Bus Yatra

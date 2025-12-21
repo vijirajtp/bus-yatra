@@ -5,7 +5,8 @@
         %h3.mb-0 Trip Seats
 .app-content
   .container-fluid
-    = link_to "New Trip Seat", new_admin_trip_trip_seat_path(@trip), class:"btn btn-primary mb-3"
+    - if policy(TripSeat).create?
+      = link_to "New Trip Seat", new_admin_trip_trip_seat_path(@trip), class:"btn btn-primary mb-3"
     %p
       %strong Route:
       = @trip.route.from_city

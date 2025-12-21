@@ -6,6 +6,12 @@ class Trip < ApplicationRecord
 
   has_many :trip_seats, dependent: :destroy
 
+  ## Scopes
+  scope :desc, -> { order('created_at DESC') }
+
+  ## Validates
+  validates :travel_date, :price, :departure_at, presence: true
+
   ## Methods
   def self.search(params)
     records = self.includes(:route, :bus)

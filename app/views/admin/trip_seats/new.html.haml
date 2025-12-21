@@ -10,6 +10,7 @@
         .card
           .card-body
             = form_with model: [:admin, @trip, @trip_seat], local: true do |f|
+              = render "shared/error_messages", object: f.object
               = render "form", f: f
               = f.submit "Create Trip Seat", class:"btn btn-primary"
               = link_to "Back", admin_trip_trip_seats_path(@trip), class: "btn btn-secondary"

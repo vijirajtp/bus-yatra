@@ -5,7 +5,8 @@
         %h3.mb-0 Operators
 .app-content
   .container-fluid
-    = link_to "New Operator", new_admin_operator_path, class:"btn btn-primary mb-3"
+    - if policy(Operator).create?
+      = link_to "New Operator", new_admin_operator_path, class:"btn btn-primary mb-3"
     %table.table.table-bordered
       %tr
         %th Name
@@ -19,7 +20,8 @@
               %td= op.name
               %td= op.user.email
               %td= op.created_at.strftime("%d-%m-%Y %H:%M %p")
-              %td= link_to "Edit", edit_admin_operator_path(op)
+              - if policy(op).edit?
+                %td= link_to "Edit", edit_admin_operator_path(op)
           = will_paginate @operators
         - else
           %tr

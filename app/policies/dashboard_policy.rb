@@ -1,0 +1,6 @@
+class DashboardPolicy < Struct.new(:user, :dashboard)
+  
+  def index?
+    user.admin? || user.operator?
+  end
+end

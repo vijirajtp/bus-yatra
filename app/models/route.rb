@@ -4,4 +4,7 @@ class Route < ApplicationRecord
 
 	## Validations
 	validates :from_city, :to_city, presence: true
+
+	## Scopes
+  scope :desc, -> { order('created_at DESC') }
 end

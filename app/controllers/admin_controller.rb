@@ -3,6 +3,7 @@ class AdminController < ApplicationController
 
   before_action :authenticate_user!
   before_action :ensure_admin!
+  after_action :verify_authorized, except: :index, unless: :devise_controller?
 
   private
 

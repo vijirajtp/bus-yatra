@@ -1,4 +1,4 @@
-class BusPolicy < ApplicationPolicy
+class TripPolicy < ApplicationPolicy
 
   def index?
     true
@@ -13,7 +13,7 @@ class BusPolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin? || (record.respond_to?(:operator_id) && record.operator_id == user.operator.id)
+    user.admin? || (record.bus.operator_id == user.operator.id)
   end
 
   def edit?
@@ -23,9 +23,9 @@ class BusPolicy < ApplicationPolicy
   class Scope < ApplicationPolicy::Scope
     def resolve
       if user.admin?
-        scope.desc
+        scope.all
       else
-        scope.where(operator_id: user.operator.id).desc
+        scope.joins(:bus).where(buses: { operator_id: user.operator.id })
       end
     end
   end

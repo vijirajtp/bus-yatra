@@ -9,19 +9,23 @@
         %a.nav-link{href: "#{admin_dashboard_path}"}
           %i.nav-icon.bi.bi-palette
           %p Dashboard
-      %li.nav-item
-        %a.nav-link{href: "#{admin_operators_path}"}
-          %i.nav-icon.bi.bi-palette
-          %p Operators
-      %li.nav-item
-        %a.nav-link{href: "#{admin_buses_path}"}
-          %i.nav-icon.bi.bi-palette
-          %p Buses
-      %li.nav-item
-        %a.nav-link{href: "#{admin_bus_routes_path}"}
-          %i.nav-icon.bi.bi-palette
-          %p Routes
-      %li.nav-item
-        %a.nav-link{href: "#{admin_trips_path}"}
-          %i.nav-icon.bi.bi-palette
-          %p Trips
+      - if policy(Operator).index?
+        %li.nav-item
+          %a.nav-link{href: "#{admin_operators_path}"}
+            %i.nav-icon.bi.bi-palette
+            %p Operators
+      - if policy(Bus).index?
+        %li.nav-item
+          %a.nav-link{href: "#{admin_buses_path}"}
+            %i.nav-icon.bi.bi-palette
+            %p Buses
+      - if policy(Route).index?
+        %li.nav-item
+          %a.nav-link{href: "#{admin_bus_routes_path}"}
+            %i.nav-icon.bi.bi-palette
+            %p Routes
+      - if policy(Trip).index?
+        %li.nav-item
+          %a.nav-link{href: "#{admin_trips_path}"}
+            %i.nav-icon.bi.bi-palette
+            %p Trips

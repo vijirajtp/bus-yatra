@@ -1,12 +1,12 @@
 .mb-3
   = f.label :route_id, "Route"
-  = f.collection_select :route_id, Route.all, :id, ->(r) { "#{r.from_city} ➝ #{r.to_city}" }, {}, { class: "form-control" }
+  = f.collection_select :route_id, policy_scope(Route), :id, ->(r) { "#{r.from_city} ➝ #{r.to_city}" }, {}, { class: "form-control" }
 .mb-3
   = f.label :operator_id, "Operator"
-  = f.collection_select :operator_id, Operator.all, :id, :name, {}, { class: "form-control" }
+  = f.collection_select :operator_id, policy_scope(Operator), :id, :name, {}, { class: "form-control" }
 .mb-3
   = f.label :bus_id, "Bus"
-  = f.collection_select :bus_id, Bus.all, :id, :name, {}, { class: "form-control" }
+  = f.collection_select :bus_id, policy_scope(Bus), :id, :name, {}, { class: "form-control" }
 .mb-3
   = f.label :travel_date, "Travel Date"
   = f.date_field :travel_date, class: "form-control"
