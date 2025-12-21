@@ -1,0 +1,37 @@
+.app-content-header
+  .container-fluid
+    .row
+      .col-sm-6
+        %h3.mb-0 Trip Seats
+.app-content
+  .container-fluid
+    = link_to "New Trip Seat", new_admin_trip_trip_seat_path(@trip), class:"btn btn-primary mb-3"
+    %p
+      %strong Route:
+      = @trip.route.from_city
+      ➝ #{@trip.route.to_city}
+      %br
+      %strong Bus:
+      = @trip.bus.name
+      %br
+      %strong Date:
+      = @trip.travel_date
+
+    %table.table.table-bordered
+      %tr
+        %th Seat Number
+        %th Status
+        %th Created At
+        %th Actions
+      %tbody
+        - if @trip_seats.any?
+          - @trip_seats.each do |ts|
+            %tr
+              %td= ts.seat.seat_number
+              %td= ts.status.humanize
+              %td= ts.created_at.strftime("%d-%m-%Y %H:%M %p")
+              %td= link_to "Edit", edit_admin_trip_trip_seat_path(@trip, ts)
+          = will_paginate @trips
+        - else
+          %tr
+            %td{colspan: "4", style: "text-align:center"} No records found.

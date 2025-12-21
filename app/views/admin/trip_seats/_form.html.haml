@@ -1,0 +1,6 @@
+.mb-3
+  = f.label :seat_id, "Seat"
+  = f.collection_select :seat_id, @trip.bus.seats, :id, :seat_number, {}, class: "form-control"
+.mb-3
+  = f.label :status, "Status"
+  = f.select :status, TripSeat.statuses.keys.map { |s| [s.humanize, s] }, {}, class:"form-control"

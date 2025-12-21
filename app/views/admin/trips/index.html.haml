@@ -30,7 +30,10 @@
               %td
                 ₹#{trip.price}
               %td= trip.created_at.strftime("%d-%m-%Y %H:%M %p")
-              %td= link_to "Edit", edit_admin_trip_path(trip)
+              %td
+                = link_to "Edit", edit_admin_trip_path(trip)
+                |
+                = link_to "Trip Seats", admin_trip_trip_seats_path(trip)
           = will_paginate @trips
         - else
           %tr

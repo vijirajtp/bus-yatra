@@ -1,0 +1,6 @@
+.mb-3
+  = f.label :name, "Operator Name"
+  = f.text_field :name, class: "form-control", required: true
+.mb-3
+  = f.label :user_id, "User"
+  = f.collection_select :user_id, User.operator, :id, :email, {}, class: "form-control"
