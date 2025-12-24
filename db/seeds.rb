@@ -11,7 +11,7 @@ require 'faker'
 
 puts "===== Seeding data ====="
 
-User.create!(email: Faker::Internet.unique.email, confirmed_at: Time.now, role: "admin")
+User.create!(email: Faker::Internet.unique.email, password: "password123", confirmed_at: Time.now, role: "admin")
 
 puts "Admin created"
 
