@@ -32,9 +32,10 @@ Then, migrate the database:
 ```
 rails db:create db:migrate
 ```
-Now, you’ll be ready to seed the database with sample users, buses, trips and run the app in a local server
+Now, you’ll be ready to seed the database with sample users, buses, trips and run the app in a local server. Before starting the server, manually trigger the Dart Sass build to ensure the necessary CSS file exist:
 ```
 rails db:seed
+bundle exec rails dartsass:build
 bin/dev
 ```
 Run the background job (Sidekiq) in another tab
