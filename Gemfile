@@ -45,7 +45,7 @@ gem "devise"
 gem "pundit"
 gem 'html2haml'
 gem "dartsass-rails"
-gem "bootstrap", "~> 5.3.3"
+gem "bootstrap", "~> 5.3.8"
 gem "faker", "~> 3.5", ">= 3.5.3"
 gem 'will_paginate', '~> 4.0', '>= 4.0.1'
 gem 'sidekiq', '~> 8.1'
